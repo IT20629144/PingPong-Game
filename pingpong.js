@@ -94,14 +94,14 @@ function checkCollision() {
   if (ballY >= gameHeight - ballRadius) {
     ballYDirection = -1;
   }
-  if (ballX <= 0+ ballRadius) {
+  if (ballX <= 0 + ballRadius) {
     player2Score += 1;
     udpateScore();
     createBall();
 
     return;
   }
-  if (ballX >= gameWidth-ballRadius) {
+  if (ballX >= gameWidth - ballRadius) {
     player1Score += 1;
     udpateScore();
     createBall();
@@ -187,15 +187,26 @@ function udpateScore() {
   scoreText.textContent = `${player1Score} : ${player2Score}`;
 }
 function checkPlayerWin() {
-  if (player1Score >= 10) {
-    ballX = gameWidth-ballRadius*2;
+  if (player1Score >= 1) {
+    ballX = gameWidth - ballRadius * 2;
     running = false;
-    win.textContent = "Player1 Won";
-  } else if (player2Score >= 10) {
-    ballX = 0+ gameWidth/2;
+    // win.textContent = "Player1 Won";
+    winBoxAlert();
+    ctx.fillText("Player1 Won", gameWidth / 2, gameHeight / 2);
+  } else if (player2Score >= 1) {
+    ballX = 0 + gameWidth / 2;
     running = false;
-    win.textContent = "Player2 Won";
+    // win.textContent = "Player2 Won";
+    winBoxAlert();
+    ctx.fillText("Player2 Won!", gameWidth / 2, gameHeight / 2);
   }
+}
+
+function winBoxAlert() {
+  ctx.font = "50px sans-serif";
+  ctx.fontWeight = "200";
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
 }
 function restartGame() {
   ballSpeed = 1;
