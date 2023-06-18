@@ -1,31 +1,44 @@
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }
-body{
-    background-color: beige;
+body {
+  background-image: url(background.jpg);
+  background-position: center;
+  background-size: cover;
+  align-items: justify;
 }
-#gameBoard{
-    border:3px solid;
+#gameBoard {
+  border: 3px solid white;
 }
-#gameContainer{
-    text-align: center;
-    margin-top:10px;
+#gameContainer {
+  text-align: center;
+  margin-top: 20px;
 }
-#scoreText{
-    font-size: 75px;
-    margin-top: 15px;
+#scoreText {
+  font-size: 75px;
+  margin-top: 15px;
+  color: white;
 }
-#restartButton{
-    font-family: "Permanent Marker",cursive;
-    font-size: 22px;
-    padding:5px;
-    border: 3px solid #222;
-    width:150px;
-    height: 50px;
-    margin-top:15px;
-    background-color: red;
-    color:white;
-    border-radius: 10px;
-    text-align: center;
- }
+#restartButton {
+  font-family: "Permanent Marker", cursive;
+  font-size: 22px;
+  padding: 5px;
+  border: 2px solid white;
+  width: 150px;
+  height: 50px;
+  margin-top: 15px;
+  background-color: red;
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+.scoreContainer {
+  width: 350px;
+  height: 200px;
+  text-align: center;
+  background-color: gray;
+  margin: auto;
+  border: 5px solid #f5f393;
+  border-radius: 15px;
+}
