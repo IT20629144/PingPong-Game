@@ -39,7 +39,7 @@ let paddle2 = {
 gameStart();
 
 function gameStart(){
-    // createBall();
+    createBall();
     nextTick();
     console.log("hello");
 
@@ -49,8 +49,8 @@ function nextTick(){
     intervalID = setTimeout(() =>{
         clearBoard();
         drawPaddles();
-        // moveBall();
-        drawBall();
+        moveBall();
+        drawBall(ballx,ballY);
         // checkCollision();
         nextTick();
     },10);
@@ -72,7 +72,9 @@ function drawPaddles(){
     ctx.fillRect(paddle2.x,paddle2.y,paddle2.width,paddle2.height);
     ctx.strokeRect(paddle2.x,paddle2.y,paddle2.width,paddle2.height);
 };
-// function moveBall(){};
+// function moveBall(){
+//     ballX *= 
+// };
 function drawBall(){
     ctx.fillStyle = ballColor;
     ctx.strokeStyle = ballBorderColor;
@@ -86,8 +88,23 @@ function drawBall(){
 // function checkCollision(){};
 // function nextTick(){};
 
-// function createBall(){
+function createBall(){
+    ballSpeed = 1;
+    if(Math.round(Math.random()) == 1){
+        ballXDirection = 1;
+    }
+    else{
+        ballXDirection = -1;
+    }
+    if(Math.round(Math.random()) == 1){
+        ballYDirection = 1;
+    }
+    else{
+        ballYDirection = -1;
+    }
 
-// };
+    ballX = gameWidth / 2;
+    ballY = gameWidth / 2;
+};
 // function changeDirection(){};
 // function restartGame(){};
