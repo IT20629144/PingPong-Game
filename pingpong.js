@@ -81,35 +81,41 @@ function drawBall() {
   ctx.fill();
   ctx.stroke();
 }
-function checkCollision(){
-    if(ballY <= 0 + ballRadius){
-        ballYDirection = +1;
+function checkCollision() {
+  if (ballY <= 0 + ballRadius) {
+    ballYDirection = +1;
+  }
+  if (ballY >= gameHeight - ballRadius) {
+    ballYDirection = -1;
+  }
+  if (ballX <= 0) {
+    player2Score += 1;
+    udpateScore();
+    createBall();
+
+    return;
+  }
+  if (ballX >= gameWidth) {
+    player1Score += 1;
+    udpateScore();
+    createBall();
+    return;
+  }
+  if (ballX <= paddle1.x + ballRadius + paddle1.width) {
+    if (ballY > paddle1.y && ballY < paddle1.y + paddle1.height) {
+      ballX = paddle1.x + paddle1.width + ballRadius; // If ball gets stuck
+      ballXDirection *= -1;
+      ballSpeed += 0.3;
     }
-    if(ballY >= gameHeight - ballRadius){
-        ballYDirection = -1;
+  }
+  if (ballX >= paddle2.x - ballRadius) {
+    if (ballY > paddle2.y && ballY < paddle2.y + paddle2.height) {
+      ballX = paddle2.x - ballRadius; // If ball gets stuck
+      ballXDirection *= -1;
+      ballSpeed += 0.3;
     }
-    if(ballX <= 0){
-        createBall();
-        return;
-    }
-    if(ballX >= gameWidth){
-        createBall();
-        return;
-    }
-    if(ballX <= (paddle1.x + ballRadius + paddle1.width)){
-        if(ballY > paddle1.y && ballY < paddle1.y + paddle1.height){
-            ballXDirection *= -1;
-            ballSpeed += 0.3;
-        }
-    }
-    if(ballX >= paddle2.x - ballRadius){
-        if(ballY > paddle2.y && ballY < paddle2.y + paddle2.height){
-            ballXDirection *= -1;
-            ballSpeed += 0.3;
-        }
-    }
-    
-};
+  }
+}
 
 function createBall() {
   ballSpeed = 1;
@@ -133,37 +139,45 @@ function moveBall() {
 }
 function changeDirection(event) {
   const keyPressed = event.keyCode;
-  
+
   const paddle1Up = 87;
   const paddle1Down = 83;
   const paddle2Up = 38;
   const paddle2Down = 40;
 
-  switch(keyPressed){
-    case paddle1Up:{
-        if(paddle1.y > 0){
-            paddle1.y -= paddleSpeed;
+  switch (keyPressed) {
+    case paddle1Up:
+      {
+        if (paddle1.y > 0) {
+          paddle1.y -= paddleSpeed;
         }
-    }
-     break;
-     case paddle1Down:{
-        if(paddle1.y < gameHeight - paddle1.height){
-            paddle1.y += paddleSpeed;
+      }
+      break;
+    case paddle1Down:
+      {
+        if (paddle1.y < gameHeight - paddle1.height) {
+          paddle1.y += paddleSpeed;
         }
-    }
-     break;
-     case paddle2Up:{
-        if(paddle2.y > 0 ){
-            paddle2.y -= paddleSpeed;
+      }
+      break;
+    case paddle2Up:
+      {
+        if (paddle2.y > 0) {
+          paddle2.y -= paddleSpeed;
         }
-    }
-     break;
-     case paddle2Down:{
-        if(paddle2.y < gameHeight - paddle2.height){
-            paddle2.y += paddleSpeed;
+      }
+      break;
+    case paddle2Down:
+      {
+        if (paddle2.y < gameHeight - paddle2.height) {
+          paddle2.y += paddleSpeed;
         }
-    }
-     break;
+      }
+      break;
   }
+}
+
+function udpateScore() {
+    scoreText.textContent = `${player1Score} : ${player2Score}`
 }
 // function restartGame(){};ww
