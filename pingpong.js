@@ -2,6 +2,7 @@ const gameBoard = document.querySelector("#gameBoard");
 const ctx = gameBoard.getContext("2d");
 const scoreText = document.querySelector("#scoreText");
 const restartButton = document.querySelector("#restartButton");
+const win = document.querySelector("#win");
 const gameWidth = gameBoard.width;
 const gameHeight = gameBoard.height;
 const backgroundColor = "forestgreen";
@@ -32,6 +33,7 @@ let paddle2 = {
   x: gameWidth - 25,
   y: gameHeight - 100,
 };
+let running = true;
 
 window.addEventListener("keydown", changeDirection);
 restartButton.addEventListener("click", restartGame);
@@ -39,19 +41,23 @@ restartButton.addEventListener("click", restartGame);
 gameStart();
 
 function gameStart() {
+  running = true;
   createBall();
   nextTick();
 }
 
 function nextTick() {
-  intervalID = setTimeout(() => {
-    clearBoard();
-    drawPaddles();
-    moveBall();
-    drawBall(ballX, ballY);
-    checkCollision();
-    nextTick();
-  }, 10);
+  if (running) {
+    intervalId = setTimeout(() => {
+      clearBoard();
+      drawPaddles();
+      moveBall();
+      drawBall(ballX, ballY);
+      checkCollision();
+      checkPlayerWin();
+      nextTick();
+    }, 10);
+  }
 }
 
 function clearBoard() {
@@ -88,31 +94,31 @@ function checkCollision() {
   if (ballY >= gameHeight - ballRadius) {
     ballYDirection = -1;
   }
-  if (ballX <= 0) {
+  if (ballX <= 0+ ballRadius) {
     player2Score += 1;
     udpateScore();
     createBall();
 
     return;
   }
-  if (ballX >= gameWidth) {
+  if (ballX >= gameWidth-ballRadius) {
     player1Score += 1;
     udpateScore();
     createBall();
     return;
   }
   if (ballX <= paddle1.x + ballRadius + paddle1.width) {
-    if (ballY > paddle1.y && ballY < paddle1.y + paddle1.height) {
+    if (ballY > paddle1.y + ballRadius && ballY < paddle1.y + paddle1.height) {
       ballX = paddle1.x + paddle1.width + ballRadius; // If ball gets stuck
       ballXDirection *= -1;
-      ballSpeed += 0.3;
+      ballSpeed += 0.2;
     }
   }
   if (ballX >= paddle2.x - ballRadius) {
     if (ballY > paddle2.y && ballY < paddle2.y + paddle2.height) {
       ballX = paddle2.x - ballRadius; // If ball gets stuck
       ballXDirection *= -1;
-      ballSpeed += 0.3;
+      ballSpeed += 0.2;
     }
   }
 }
@@ -180,6 +186,17 @@ function changeDirection(event) {
 function udpateScore() {
   scoreText.textContent = `${player1Score} : ${player2Score}`;
 }
+function checkPlayerWin() {
+  if (player1Score >= 10) {
+    ballX = gameWidth-ballRadius*2;
+    running = false;
+    win.textContent = "Player1 Won";
+  } else if (player2Score >= 10) {
+    ballX = 0+ gameWidth/2;
+    running = false;
+    win.textContent = "Player2 Won";
+  }
+}
 function restartGame() {
   ballSpeed = 1;
   ballXDirection = 0;
@@ -200,7 +217,7 @@ function restartGame() {
     x: gameWidth - 25,
     y: gameHeight - 100,
   };
-  clearInterval(intervalID);
+  clearInterval(intervalId);
   udpateScore();
   gameStart();
 }
