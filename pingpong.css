@@ -1,0 +1,10 @@
+#gameBoard{
+    border:3px solid;
+}
+#gameContainer{
+    text-align: center;
+}
+#scoreText{
+    font-size: 75px;
+    margin-top: 15px;
+}
