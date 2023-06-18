@@ -49,7 +49,7 @@ function nextTick() {
     drawPaddles();
     moveBall();
     drawBall(ballX, ballY);
-    // checkCollision();
+    checkCollision();
     nextTick();
   }, 10);
 }
@@ -81,8 +81,35 @@ function drawBall() {
   ctx.fill();
   ctx.stroke();
 }
-// function checkCollision(){};
-// function nextTick(){};
+function checkCollision(){
+    if(ballY <= 0 + ballRadius){
+        ballYDirection = +1;
+    }
+    if(ballY >= gameHeight - ballRadius){
+        ballYDirection = -1;
+    }
+    if(ballX <= 0){
+        createBall();
+        return;
+    }
+    if(ballX >= gameWidth){
+        createBall();
+        return;
+    }
+    if(ballX <= (paddle1.x + ballRadius + paddle1.width)){
+        if(ballY > paddle1.y && ballY < paddle1.y + paddle1.height){
+            ballXDirection *= -1;
+            ballSpeed += 0.5;
+        }
+    }
+    if(ballX >= paddle2.x - ballRadius){
+        if(ballY > paddle2.y && ballY < paddle2.y + paddle2.height){
+            ballXDirection *= -1;
+            ballSpeed += 0.5;
+        }
+    }
+    
+};
 
 function createBall() {
   ballSpeed = 1;
