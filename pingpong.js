@@ -42,3 +42,14 @@ function gameStart(){
     createBall();
     nextTick();
 }
+
+function nextTick(){
+    intervalID = setTimeout(() =>{
+        clearBoard();
+        drawPaddles();
+        moveBall();
+        drawBall();
+        checkCollision();
+        nextTick();
+    },10);
+}
