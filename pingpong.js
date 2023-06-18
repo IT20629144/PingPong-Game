@@ -50,7 +50,7 @@ function nextTick(){
         clearBoard();
         drawPaddles();
         // moveBall();
-        // drawBall();
+        drawBall();
         // checkCollision();
         nextTick();
     },10);
@@ -73,10 +73,21 @@ function drawPaddles(){
     ctx.strokeRect(paddle2.x,paddle2.y,paddle2.width,paddle2.height);
 };
 // function moveBall(){};
-// function drawBall(){};
+function drawBall(){
+    ctx.fillStyle = ballColor;
+    ctx.strokeStyle = ballBorderColor;
+    ctx.lineWidth = 2;
+
+    ctx.beginPath();
+    ctx.arc(ballX,ballY,ballRadius,0,2* Math.PI);
+    ctx.fill();
+    ctx.stroke();
+};
 // function checkCollision(){};
 // function nextTick(){};
 
-// function createBall(){};
+// function createBall(){
+
+// };
 // function changeDirection(){};
 // function restartGame(){};
