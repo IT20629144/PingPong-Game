@@ -34,7 +34,7 @@ let paddle2 = {
 };
 
 window.addEventListener("keydown", changeDirection);
-// restartButton.addEventListener("click", restartGame);
+restartButton.addEventListener("click", restartGame);
 
 gameStart();
 
@@ -178,6 +178,29 @@ function changeDirection(event) {
 }
 
 function udpateScore() {
-    scoreText.textContent = `${player1Score} : ${player2Score}`
+  scoreText.textContent = `${player1Score} : ${player2Score}`;
 }
-// function restartGame(){};ww
+function restartGame() {
+  ballSpeed = 1;
+  ballXDirection = 0;
+  ballYDirection = 0;
+  ballX = gameWidth / 2;
+  ballY = gameHeight / 2;
+  player1Score = 0;
+  player2Score = 0;
+  paddle1 = {
+    width: 25,
+    height: 100,
+    x: 0,
+    y: 0,
+  };
+  paddle2 = {
+    width: 25,
+    height: 100,
+    x: gameWidth - 25,
+    y: gameHeight - 100,
+  };
+  clearInterval(intervalID);
+  udpateScore();
+  gameStart();
+}
